@@ -1,241 +1,287 @@
+Aquí está el nuevo código de jarvis.html con activación por voz:
+
 <!DOCTYPE html>
-<html>
-  <head>
-    <title>Ruby on Rails: Welcome aboard</title>
-    <style type="text/css" media="screen">
-      body {
-        margin: 0;
-        margin-bottom: 25px;
-        padding: 0;
-        background-color: #f0f0f0;
-        font-family: "Lucida Grande", "Bitstream Vera Sans", "Verdana";
-        font-size: 13px;
-        color: #333;
-      }
-
-      h1 {
-        font-size: 28px;
-        color: #000;
-      }
-
-      a  {color: #03c}
-      a:hover {
-        background-color: #03c;
-        color: white;
-        text-decoration: none;
-      }
-
-
-      #page {
-        background-color: #f0f0f0;
-        width: 750px;
-        margin: 0;
-        margin-left: auto;
-        margin-right: auto;
-      }
-
-      #content {
-        float: left;
-        background-color: white;
-        border: 3px solid #aaa;
-        border-top: none;
-        padding: 25px;
-        width: 500px;
-      }
-
-      #sidebar {
-        float: right;
-        width: 175px;
-      }
-
-      #footer {
-        clear: both;
-      }
-
-      #header, #about, #getting-started {
-        padding-left: 75px;
-        padding-right: 30px;
-      }
-
-
-      #header {
-        background-image: url("assets/rails.png");
-        background-repeat: no-repeat;
-        background-position: top left;
-        height: 64px;
-      }
-      #header h1, #header h2 {margin: 0}
-      #header h2 {
-        color: #888;
-        font-weight: normal;
-        font-size: 16px;
-      }
-
-
-      #about h3 {
-        margin: 0;
-        margin-bottom: 10px;
-        font-size: 14px;
-      }
-
-      #about-content {
-        background-color: #ffd;
-        border: 1px solid #fc0;
-        margin-left: -55px;
-        margin-right: -10px;
-      }
-      #about-content table {
-        margin-top: 10px;
-        margin-bottom: 10px;
-        font-size: 11px;
-        border-collapse: collapse;
-      }
-      #about-content td {
-        padding: 10px;
-        padding-top: 3px;
-        padding-bottom: 3px;
-      }
-      #about-content td.name  {color: #555}
-      #about-content td.value {color: #000}
-
-      #about-content ul {
-        padding: 0;
-        list-style-type: none;
-      }
-
-      #about-content.failure {
-        background-color: #fcc;
-        border: 1px solid #f00;
-      }
-      #about-content.failure p {
-        margin: 0;
-        padding: 10px;
-      }
-
-
-      #getting-started {
-        border-top: 1px solid #ccc;
-        margin-top: 25px;
-        padding-top: 15px;
-      }
-      #getting-started h1 {
-        margin: 0;
-        font-size: 20px;
-      }
-      #getting-started h2 {
-        margin: 0;
-        font-size: 14px;
-        font-weight: normal;
-        color: #333;
-        margin-bottom: 25px;
-      }
-      #getting-started ol {
-        margin-left: 0;
-        padding-left: 0;
-      }
-      #getting-started li {
-        font-size: 18px;
-        color: #888;
-        margin-bottom: 25px;
-      }
-      #getting-started li h2 {
-        margin: 0;
-        font-weight: normal;
-        font-size: 18px;
-        color: #333;
-      }
-      #getting-started li p {
-        color: #555;
-        font-size: 13px;
-      }
-
-
-      #sidebar ul {
-        margin-left: 0;
-        padding-left: 0;
-      }
-      #sidebar ul h3 {
-        margin-top: 25px;
-        font-size: 16px;
-        padding-bottom: 10px;
-        border-bottom: 1px solid #ccc;
-      }
-      #sidebar li {
-        list-style-type: none;
-      }
-      #sidebar ul.links li {
-        margin-bottom: 5px;
-      }
-
-      .filename {
-        font-style: italic;
-      }
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>JARVIS - Asistente IA</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #0a0a0a 0%, #1a1a2e 100%);
+            color: #00d4ff;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+        }
+        .container {
+            text-align: center;
+            padding: 40px;
+            background: rgba(0, 0, 0, 0.7);
+            border-radius: 20px;
+            border: 2px solid #00d4ff;
+            box-shadow: 0 0 30px rgba(0, 212, 255, 0.3);
+            max-width: 600px;
+        }
+        h1 {
+            font-size: 3em;
+            margin: 0 0 10px 0;
+            text-shadow: 0 0 20px #00d4ff;
+        }
+        .subtitle {
+            color: #888;
+            margin-bottom: 30px;
+        }
+        .status-indicator {
+            width: 150px;
+            height: 150px;
+            border-radius: 50%;
+            margin: 0 auto;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 60px;
+            transition: all 0.3s;
+        }
+        .status-indicator.listening {
+            background: linear-gradient(135deg, #00d4ff 0%, #0080ff 100%);
+            box-shadow: 0 0 30px rgba(0, 212, 255, 0.5);
+            animation: pulse 2s infinite;
+        }
+        .status-indicator.active {
+            background: linear-gradient(135deg, #ff0000 0%, #ff6600 100%);
+            box-shadow: 0 0 50px rgba(255, 0, 0, 0.8);
+            animation: pulse 1s infinite;
+        }
+        .status-indicator.processing {
+            background: linear-gradient(135deg, #ffaa00 0%, #ff6600 100%);
+            box-shadow: 0 0 40px rgba(255, 170, 0, 0.6);
+            animation: spin 2s linear infinite;
+        }
+        .status-indicator.speaking {
+            background: linear-gradient(135deg, #00ff88 0%, #00d4ff 100%);
+            box-shadow: 0 0 40px rgba(0, 255, 136, 0.6);
+            animation: pulse 0.5s infinite;
+        }
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.1); }
+        }
+        @keyframes spin {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
+        }
+        #status {
+            margin-top: 30px;
+            font-size: 1.2em;
+            min-height: 30px;
+        }
+        #transcript {
+            margin-top: 20px;
+            padding: 20px;
+            background: rgba(0, 212, 255, 0.1);
+            border-radius: 10px;
+            min-height: 100px;
+            text-align: left;
+            max-height: 400px;
+            overflow-y: auto;
+        }
+        .message {
+            margin: 10px 0;
+            padding: 10px;
+            border-radius: 5px;
+        }
+        .user-message {
+            background: rgba(0, 212, 255, 0.2);
+            border-left: 3px solid #00d4ff;
+        }
+        .jarvis-message {
+            background: rgba(0, 255, 136, 0.2);
+            border-left: 3px solid #00ff88;
+        }
+        #startButton {
+            margin-top: 20px;
+            padding: 15px 30px;
+            font-size: 1.2em;
+            background: linear-gradient(135deg, #00d4ff 0%, #0080ff 100%);
+            border: none;
+            border-radius: 10px;
+            color: white;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        #startButton:hover {
+            transform: scale(1.05);
+            box-shadow: 0 0 20px rgba(0, 212, 255, 0.5);
+        }
     </style>
-    <script type="text/javascript">
-      function about() {
-        info = document.getElementById('about-content');
-        if (window.XMLHttpRequest)
-          { xhr = new XMLHttpRequest(); }
-        else
-          { xhr = new ActiveXObject("Microsoft.XMLHTTP"); }
-        xhr.open("GET","rails/info/properties",false);
-        xhr.send("");
-        info.innerHTML = xhr.responseText;
-        info.style.display = 'block'
-      }
-    </script>
-  </head>
-  <body>
-    <div id="page">
-      <div id="sidebar">
-        <ul id="sidebar-items">
-          <li>
-            <h3>Browse the documentation</h3>
-            <ul class="links">
-              <li><a href="http://guides.rubyonrails.org/">Rails Guides</a></li>
-              <li><a href="http://api.rubyonrails.org/">Rails API</a></li>
-              <li><a href="http://www.ruby-doc.org/core/">Ruby core</a></li>
-              <li><a href="http://www.ruby-doc.org/stdlib/">Ruby standard library</a></li>
-            </ul>
-          </li>
-        </ul>
-      </div>
-
-      <div id="content">
-        <div id="header">
-          <h1>Welcome aboard</h1>
-          <h2>You&rsquo;re riding Ruby on Rails!</h2>
-        </div>
-
-        <div id="about">
-          <h3><a href="rails/info/properties" onclick="about(); return false">About your application&rsquo;s environment</a></h3>
-          <div id="about-content" style="display: none"></div>
-        </div>
-
-        <div id="getting-started">
-          <h1>Getting started</h1>
-          <h2>Here&rsquo;s how to get rolling:</h2>
-
-          <ol>
-            <li>
-              <h2>Use <code>rails generate</code> to create your models and controllers</h2>
-              <p>To see all available options, run it without parameters.</p>
-            </li>
-
-            <li>
-              <h2>Set up a default route and remove <span class="filename">public/index.html</span></h2>
-              <p>Routes are set up in <span class="filename">config/routes.rb</span>.</p>
-            </li>
-
-            <li>
-              <h2>Create your database</h2>
-              <p>Run <code>rake db:create</code> to create your database. If you're not using SQLite (the default), edit <span class="filename">config/database.yml</span> with your username and password.</p>
-            </li>
-          </ol>
-        </div>
-      </div>
-
-      <div id="footer">&nbsp;</div>
+</head>
+<body>
+    <div class="container">
+        <h1>JARVIS</h1>
+        <p class="subtitle">Just A Rather Very Intelligent System</p>
+        
+        <div id="indicator" class="status-indicator listening">🎤</div>
+        
+        <div id="status">Di "JARVIS" para activar</div>
+        
+        <button id="startButton">Iniciar Escucha Continua</button>
+        
+        <div id="transcript"></div>
     </div>
-  </body>
+
+    <script>
+        const indicator = document.getElementById('indicator');
+        const status = document.getElementById('status');
+        const transcript = document.getElementById('transcript');
+        const startButton = document.getElementById('startButton');
+        
+        // IMPORTANTE: Reemplaza esta URL con la URL de tu webhook de n8n
+        const WEBHOOK_URL = 'TU_URL_DE_WEBHOOK_AQUI';
+        
+        let recognition;
+        let isListening = false;
+        let isProcessing = false;
+        let sessionId = localStorage.getItem('jarvis_session') || 'session_' + Date.now();
+        localStorage.setItem('jarvis_session', sessionId);
+
+        // Verificar soporte de reconocimiento de voz
+        if ('webkitSpeechRecognition' in window || 'SpeechRecognition' in window) {
+            const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
+            recognition = new SpeechRecognition();
+            recognition.continuous = true;
+            recognition.interimResults = true;
+            recognition.lang = 'es-ES';
+
+            recognition.onstart = () => {
+                isListening = true;
+                indicator.className = 'status-indicator listening';
+                status.textContent = 'Escuchando... Di "JARVIS" para activar';
+            };
+
+            recognition.onresult = (event) => {
+                const current = event.resultIndex;
+                const transcriptText = event.results[current][0].transcript.toLowerCase().trim();
+                
+                // Detectar palabra de activación "JARVIS"
+                if (transcriptText.includes('jarvis') && !isProcessing) {
+                    isProcessing = true;
+                    indicator.className = 'status-indicator active';
+                    status.textContent = '¡JARVIS activado! Escuchando tu pregunta...';
+                    
+                    // Esperar a que termine de hablar
+                    setTimeout(() => {
+                        const fullTranscript = Array.from(event.results)
+                            .map(result => result[0].transcript)
+                            .join(' ')
+                            .replace(/jarvis/gi, '')
+                            .trim();
+                        
+                        if (fullTranscript) {
+                            sendTextToJarvis(fullTranscript);
+                        }
+                    }, 2000);
+                }
+            };
+
+            recognition.onerror = (event) => {
+                console.error('Error de reconocimiento:', event.error);
+                if (event.error === 'no-speech') {
+                    // Reiniciar si no detecta voz
+                    if (isListening && !isProcessing) {
+                        recognition.stop();
+                        setTimeout(() => recognition.start(), 100);
+                    }
+                }
+            };
+
+            recognition.onend = () => {
+                // Reiniciar automáticamente si no está procesando
+                if (isListening && !isProcessing) {
+                    setTimeout(() => recognition.start(), 100);
+                }
+            };
+
+            startButton.addEventListener('click', () => {
+                if (!isListening) {
+                    recognition.start();
+                    startButton.textContent = 'Detener Escucha';
+                    startButton.style.background = 'linear-gradient(135deg, #ff0000 0%, #ff6600 100%)';
+                } else {
+                    recognition.stop();
+                    isListening = false;
+                    startButton.textContent = 'Iniciar Escucha Continua';
+                    startButton.style.background = 'linear-gradient(135deg, #00d4ff 0%, #0080ff 100%)';
+                    indicator.className = 'status-indicator';
+                    status.textContent = 'Escucha detenida';
+                }
+            });
+        } else {
+            status.textContent = 'Tu navegador no soporta reconocimiento de voz';
+            startButton.style.display = 'none';
+        }
+
+        async function sendTextToJarvis(userMessage) {
+            try {
+                indicator.className = 'status-indicator processing';
+                status.textContent = 'JARVIS está pensando...';
+
+                const response = await fetch(WEBHOOK_URL, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({
+                        user_message: userMessage,
+                        session_id: sessionId
+                    })
+                });
+
+                const data = await response.json();
+                
+                // Mostrar transcripción del usuario
+                const userDiv = document.createElement('div');
+                userDiv.className = 'message user-message';
+                userDiv.innerHTML = `<strong>Tú:</strong> ${userMessage}`;
+                transcript.appendChild(userDiv);
+
+                // Mostrar respuesta de JARVIS
+                const jarvisDiv = document.createElement('div');
+                jarvisDiv.className = 'message jarvis-message';
+                jarvisDiv.innerHTML = `<strong>JARVIS:</strong> ${data.jarvis_response}`;
+                transcript.appendChild(jarvisDiv);
+
+                // Reproducir audio de respuesta
+                if (data.audio_base64) {
+                    indicator.className = 'status-indicator speaking';
+                    status.textContent = 'JARVIS está hablando...';
+                    
+                    const audio = new Audio('data:audio/mp3;base64,' + data.audio_base64);
+                    audio.play();
+                    
+                    audio.onended = () => {
+                        isProcessing = false;
+                        indicator.className = 'status-indicator listening';
+                        status.textContent = 'Escuchando... Di "JARVIS" para activar';
+                    };
+                } else {
+                    isProcessing = false;
+                    indicator.className = 'status-indicator listening';
+                    status.textContent = 'Escuchando... Di "JARVIS" para activar';
+                }
+
+                transcript.scrollTop = transcript.scrollHeight;
+            } catch (error) {
+                status.textContent = 'Error al comunicarse con JARVIS';
+                console.error(error);
+                isProcessing = false;
+                indicator.className = 'status-indicator listening';
+            }
+        }
+    </script>
+</body>
 </html>
